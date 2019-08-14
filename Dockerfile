@@ -14,6 +14,11 @@ RUN sudo apt-get install -y php7.0-curl
 RUN sudo apt-get install -y nginx postgresql-client php php7.0-fpm php7.0-pgsql php7.0-mysql php7.0-gd php7.0-xml php7.0-intl phpunit 
 RUN sudo apt-get install -y php7.0-mbstring 
 
+
+RUN sudo apt-get install -y php7.0-zip
+
+
+
 RUN service php7.0-fpm start
 
 RUN rm -rf /etc/php/7.0/fpm/php.ini
