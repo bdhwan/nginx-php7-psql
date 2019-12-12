@@ -3,16 +3,23 @@ echo "ok"
 echo "GIT_URL: "$GIT_URL
 echo "DST_FOLDER: "$DST_FOLDER
 
-git clone "$GIT_URL"
 
-rm -rf /var/www/html
-
-if [ -z "$DST_FOLDER" ]
+if [ -z "$GIT_URL" ]
 then
-    echo "not defined DST_FOLDER"
-    mv "$(basename "$GIT_URL" .git)" /var/www/html
+    echo "not defined GIT_URL"
 else 
-    echo "defined =" $DST_FOLDER
-    cd "$(basename "$GIT_URL" .git)"
-	mv $DST_FOLDER /var/www/html
+    git clone "$GIT_URL"
+    rm -rf /var/www/html
+    if [ -z "$DST_FOLDER" ]
+    then
+        echo "not defined DST_FOLDER"
+        mv "$(basename "$GIT_URL" .git)" /var/www/html
+    else 
+        echo "defined =" $DST_FOLDER
+        cd "$(basename "$GIT_URL" .git)"
+        mv $DST_FOLDER /var/www/html
+    fi
 fi
+
+
+
