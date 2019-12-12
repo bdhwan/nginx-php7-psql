@@ -26,7 +26,7 @@ RUN rm -rf /etc/php/7.0/fpm/pool.d/www.conf
 ADD conf/php.ini /etc/php/7.0/fpm/php.ini
 ADD conf/default /etc/nginx/sites-available/default
 ADD conf/www.conf /etc/php/7.0/fpm/pool.d/www.conf
-ADD conf/index.php /var/www/html/index.php
+
 
 ADD check.sh /home/check.sh
 ADD add_env.sh /home/add_env.sh
