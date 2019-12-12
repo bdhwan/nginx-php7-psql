@@ -18,18 +18,23 @@ RUN sudo apt-get install -y php7.0-mbstring
 RUN sudo apt-get install -y php7.0-zip
 
 
-
-RUN service php7.0-fpm start
-
 RUN rm -rf /etc/php/7.0/fpm/php.ini
 RUN rm -rf /etc/nginx/sites-available/default
+RUN rm -rf /etc/php/7.0/fpm/pool.d/www.conf
+
 
 ADD conf/php.ini /etc/php/7.0/fpm/php.ini
 ADD conf/default /etc/nginx/sites-available/default
+ADD conf/www.conf /etc/php/7.0/fpm/pool.d/www.conf
+ADD conf/index.php /var/www/html/index.php
 
-RUN service nginx restart
-RUN service php7.0-fpm restart
-CMD ["/bin/bash", "-c", "/usr/sbin/service php7.0-fpm start && nginx -g 'daemon off;'"]
+ADD check.sh /home/check.sh
+ADD add_env.sh /home/add_env.sh
+
+
+WORKDIR /home
+
+CMD ["/bin/bash", "-c", "source /home/add_env.sh && sh /home/check.sh && /usr/sbin/service php7.0-fpm start && nginx -g 'daemon off;'"]
 
 
 
